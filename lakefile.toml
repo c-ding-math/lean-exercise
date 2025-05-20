@@ -1,0 +1,10 @@
+name = "exercises"
+version = "0.1.0"
+defaultTargets = ["exercises"]
+
+[[lean_lib]]
+name = "Exercises"
+
+[[lean_exe]]
+name = "exercises"
+root = "Main"
