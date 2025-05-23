@@ -39,7 +39,7 @@ example : (∀ x, p x → r) ↔ (∃ x, p x) → r := Iff.intro
   (fun h ⟨x, hp⟩ => h x hp)
   (fun h x hp => h ⟨x, hp⟩)
 
-example (a : α) : (∃ x, p x → r) ↔ (∀ x, p x) → r := Iff.intro
+example (a : α) : (∃ x, p x → r) ↔ (∀ x, p x) → r := Iff.intro -- there is a proof in the book
   (fun ⟨x, hp⟩ h => hp (h x))
   (fun h => Or.elim (Classical.em (∀ x, p x))
     (fun y => ⟨a, λ _ =>h y⟩)
