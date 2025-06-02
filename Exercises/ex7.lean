@@ -23,12 +23,12 @@ def length (as: List α) : Nat :=
 
 #eval length [1, 2, 3] -- 3
 
-def revert (as: List α) : List α :=
+def reverse (as: List α) : List α :=
   match as with
   | [] => []
-  | a :: as' => revert as' ++ [a]
+  | a :: as' => reverse as' ++ [a]
 
-#eval revert [1, 2, 3] -- [3, 2, 1]
+#eval reverse [1, 2, 3] -- [3, 2, 1]
 
 theorem lengthIsAGroupHomomorphism : ∀ (as bs : List α), length (as ++ bs) = length as + length bs := by
   intro as bs
@@ -37,23 +37,23 @@ theorem lengthIsAGroupHomomorphism : ∀ (as bs : List α), length (as ++ bs) = 
   | cons a as ih =>
     rw [List.cons_append, length, length, ih, Nat.add_assoc]
 
-theorem length_revert (as: List α) : length (revert as) = length as := by
+theorem length_reverse (as: List α) : length (reverse as) = length as := by
   induction as with
   | nil => rfl
   | cons a as' ih =>
-    rw [revert, lengthIsAGroupHomomorphism, length, length, length, Nat.add_zero,Nat.add_comm,ih]
+    rw [reverse, lengthIsAGroupHomomorphism, length, length, length, Nat.add_zero,Nat.add_comm,ih]
 
-theorem revert_append (as bs: List α) : revert (as ++ bs) = revert bs ++ revert as := by
+theorem reverse_append (as bs: List α) : reverse (as ++ bs) = reverse bs ++ reverse as := by
   induction as with
-  | nil => rw [revert, List.nil_append, List.append_nil]
+  | nil => rw [reverse, List.nil_append, List.append_nil]
   | cons a as' ih =>
-    rw [revert, List.cons_append, revert, ih, List.append_assoc]
+    rw [reverse, List.cons_append, reverse, ih, List.append_assoc]
 
-theorem revert_revert (as: List α) : revert (revert as) = as := by
+theorem reverse_reverse (as: List α) : reverse (reverse as) = as := by
   induction as with
   | nil => rfl
   | cons a as' ih =>
-    rw [revert, revert_append, ih, revert, revert, List.nil_append, List.singleton_append]
+    rw [reverse, reverse_append, ih, reverse, reverse, List.nil_append, List.singleton_append]
 
 --ex3
 inductive Term where
